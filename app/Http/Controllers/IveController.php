@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Features\IveFeature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class IveController extends Controller
 {
@@ -12,8 +13,8 @@ class IveController extends Controller
         return (new IveFeature())->store($request);
     }
 
-    public function show($id)
+    public function show($uniqueIdentifier, Request $request)
     {
-        return (new IveFeature())->show($id);
+        return (new IveFeature())->show($uniqueIdentifier, $request);
     }
 }

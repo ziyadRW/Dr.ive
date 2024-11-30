@@ -6,20 +6,25 @@ use App\Services\LocalStorageService;
 use App\Services\S3StorageService;
 use App\Services\DatabaseStorageService;
 use App\Interfaces\StorageInterface;
+use Illuminate\Support\Facades\Log;
 
 class StorageFactory
 {
     public static function make(string $type): StorageInterface
     {
         switch ($type) {
-            case StorageType::S3:
+            case 's3':
                 return new S3StorageService();
 
-            case StorageType::DATABASE:
+            case 'database':
                 return new DatabaseStorageService();
 
-            default:
+            case 'local':
                 return new LocalStorageService();
+
+            default:
+                throw new \InvalidArgumentException("Invalid storage type: {$type}");
         }
     }
+
 }

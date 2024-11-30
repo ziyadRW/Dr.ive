@@ -8,14 +8,17 @@ class Ive extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['unique_identifier', 'type', 'size', 'storage'];
+    protected $table = 'ives_metadata';
+    protected $fillable = ['unique_identifier', 'type', 'size', 'storage', 'filename', 'filetype'];
 
-    public static function saveMetadata(string $uniqueIdentifier, string $storage)
+    public static function saveMetadata(string $uniqueIdentifier, string $storageType, array $metadata)
     {
         self::create([
             'unique_identifier' => $uniqueIdentifier,
-            'storage' => $storage,
-            'size' => 0,
+            'storage' => $storageType,
+            'filename' => $metadata['filename'],
+            'filetype' => $metadata['filetype'],
+            'size' => $metadata['size'],
         ]);
     }
 
